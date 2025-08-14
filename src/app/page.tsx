@@ -1,156 +1,139 @@
-'use client';
+'use client'
 
-import dynamic from 'next/dynamic';
-import { Suspense } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { useEffect, useRef } from 'react'
+import { motion } from 'framer-motion'
+import dynamic from 'next/dynamic'
 
-// Dynamic imports
-const EnergyScene = dynamic(() => import('../components/EnergyScene'), { ssr: false });
-const EnergyChart = dynamic(() => import('../components/EnergyChart'), { ssr: false });
-const TechShowcase = dynamic(() => import('../components/TechShowcase'), { ssr: false });
-const VoiceInteraction = dynamic(() => import('../components/VoiceInteraction'), { ssr: false });
-const EnergyInfoGraphic = dynamic(() => import('../components/EnergyInfoGraphic'), { ssr: false });
-const AIInsights = dynamic(() => import('../components/AIInsights'), { ssr: false });
-const AIContentGenerator = dynamic(() => import('../components/AIContentGenerator'), { ssr: false });
+// Load Three.js components dynamically to avoid SSR issues
+const EnergyScene = dynamic(() => import('@/components/EnergyScene'), {
+  ssr: false,
+})
 
-// Dynamically import components to avoid SSR issues
-const EnergyScene = dynamic(() => import('../components/EnergyScene'), { ssr: false });
-const EnergyChart = dynamic(() => import('../components/EnergyChart'), { ssr: false });
-const EnergyInfoGraphic = dynamic(() => import('../components/EnergyInfoGraphic'), { ssr: false });
+const EnergyChart = dynamic(() => import('@/components/EnergyChart'), {
+  ssr: false,
+})
 
 export default function Home() {
+  const scrollRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!scrollRef.current) return
+      const scrolled = window.scrollY
+      const speed = 0.5
+      scrollRef.current.style.transform = `translateY(${scrolled * speed}px)`
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   return (
-    <main className="min-h-screen bg-gradient-to-b from-blue-900 to-black text-white">
-      {/* Hero Section with 3D Visualization */}
-      <section className="h-screen relative">
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-          className="absolute inset-0 z-10 flex items-center justify-center"
+    <div className="relative">
+      {/* Hero Section */}
+      <section className="min-h-screen relative overflow-hidden">
+        <div 
+          ref={scrollRef}
+          className="absolute inset-0 z-0"
         >
-          <div className="text-center">
-            <motion.h1
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.5 }}
-              className="text-5xl font-bold mb-4"
-            >
-              Energy Visualization Platform
-            </motion.h1>
-            <motion.p
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.7 }}
-              className="text-xl text-gray-300 mb-8"
-            >
-              Welcome to the future of energy analytics
-            </motion.p>
-            <motion.button
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.9 }}
-              className="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-full text-white font-semibold transition-colors"
-              onClick={() => document.getElementById('charts')?.scrollIntoView({ behavior: 'smooth' })}
-            >
-              Explore Data
-            </motion.button>
-          </div>
-        </motion.div>
+          <EnergyScene />
+        </div>
         
-        {/* 3D Scene Background */}
-        <div className="absolute inset-0">
-          <Suspense fallback={null}>
-            <EnergyScene />
-          </Suspense>
+        <div className="relative z-10 pt-32 pb-16 px-4">
+          <div className="max-w-6xl mx-auto">
+            <motion.h1 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="text-6xl md:text-7xl font-bold mb-6 gradient-text"
+            >
+              Future Energy Hub
+            </motion.h1>
+            
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-xl md:text-2xl text-gray-300 max-w-2xl mb-8"
+            >
+              Visualize and explore the future of sustainable energy through dynamic data visualization and AI-powered insights.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="flex flex-wrap gap-4"
+            >
+              <button className="btn-primary">
+                Explore Data
+              </button>
+              <button className="btn-secondary">
+                Learn More
+              </button>
+            </motion.div>
+          </div>
         </div>
       </section>
 
-      {/* Real-time Energy Flow Section */}
-      <section className="min-h-screen p-8 relative overflow-hidden">
+      {/* Tech Showcase Section */}
+      <section className="py-24 px-4 bg-black/90">
         <div className="max-w-6xl mx-auto">
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-3xl font-bold mb-8">Real-time Energy Flow</h2>
-            <div className="grid gap-8">
-              <Suspense fallback={<div className="h-[400px] bg-black/30 backdrop-blur-lg rounded-lg animate-pulse" />}>
-                <EnergyInfoGraphic />
-              </Suspense>
+          <h2 className="text-4xl font-bold mb-12 gradient-text text-center">
+            Advanced Technology Stack
+          </h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <motion.div 
+              className="tech-card"
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              <h3 className="text-xl font-bold mb-3 text-blue-400">3D Visualization</h3>
+              <p className="text-gray-400">Real-time 3D rendering of energy data using Three.js and WebGL technology.</p>
+            </motion.div>
+
+            <motion.div 
+              className="tech-card"
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              <h3 className="text-xl font-bold mb-3 text-blue-400">AI Analysis</h3>
+              <p className="text-gray-400">Advanced machine learning models for predictive analytics and pattern recognition.</p>
+            </motion.div>
+
+            <motion.div 
+              className="tech-card"
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              <h3 className="text-xl font-bold mb-3 text-blue-400">Real-time Data</h3>
+              <p className="text-gray-400">Live streaming of global energy metrics and sustainability indicators.</p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Dashboard Preview Section */}
+      <section className="py-24 px-4">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-4xl font-bold mb-12 gradient-text text-center">
+            Interactive Dashboard
+          </h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="dashboard-card">
+              <h3 className="text-lg font-semibold mb-4 text-blue-400">Global Energy Consumption</h3>
+              <EnergyChart type="consumption" />
             </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Charts Section */}
-      {/* Technology Showcase Section */}
-      <Suspense fallback={null}>
-        <TechShowcase />
-      </Suspense>
-
-      {/* Analytics Section */}
-      <section id="charts" className="min-h-screen p-8 relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-blue-900/20 to-black/20 backdrop-blur-sm" />
-        <div className="max-w-6xl mx-auto relative">
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-3xl font-bold mb-8">Energy Consumption Analytics</h2>
-            <div className="grid gap-8">
-              <Suspense fallback={<div className="h-[400px] bg-black/30 backdrop-blur-lg rounded-lg animate-pulse" />}>
-                <EnergyChart />
-              </Suspense>
+            
+            <div className="dashboard-card">
+              <h3 className="text-lg font-semibold mb-4 text-blue-400">Renewable Energy Growth</h3>
+              <EnergyChart type="renewable" />
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
-
-      {/* AI Insights Section */}
-      <section className="min-h-screen p-8 relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-blue-900/20 backdrop-blur-sm" />
-        <div className="max-w-6xl mx-auto relative">
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-3xl font-bold mb-8">AI-Powered Insights</h2>
-            <Suspense fallback={<div className="h-[400px] bg-black/30 backdrop-blur-lg rounded-lg animate-pulse" />}>
-              <AIInsights />
-            </Suspense>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* AI Content Generation Section */}
-      <section className="min-h-screen p-8 relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-blue-900/20 to-black/20 backdrop-blur-sm" />
-        <div className="max-w-6xl mx-auto relative">
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-3xl font-bold mb-8">Learn More</h2>
-            <Suspense fallback={<div className="h-[400px] bg-black/30 backdrop-blur-lg rounded-lg animate-pulse" />}>
-              <AIContentGenerator />
-            </Suspense>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Voice Interaction */}
-      <Suspense fallback={null}>
-        <VoiceInteraction />
-      </Suspense>
-    </main>
-  );
+    </div>
+  )
 }
