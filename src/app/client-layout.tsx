@@ -16,8 +16,7 @@ export function ClientLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={`${inter.variable} antialiased bg-black text-white min-h-screen`}>
+    <div className={`${inter.variable} antialiased bg-black text-white min-h-screen`}>
         <main>{children}</main>
         
         <footer className="energy-footer bg-black/80 backdrop-blur-lg border-t border-blue-900/30 pt-16 pb-8">
@@ -61,7 +60,6 @@ export function ClientLayout({
         </footer>
 
         <ChatBot />
-      </body>
-    </html>
+    </div>
   );
 }
