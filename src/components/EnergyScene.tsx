@@ -6,7 +6,7 @@ import { useRef } from 'react'
 import * as THREE from 'three'
 
 export default function EnergyScene() {
-  const groupRef = useRef()
+  const groupRef = useRef<THREE.Group>(null)
 
   return (
     <Canvas camera={{ position: [0, 0, 5] }}>
