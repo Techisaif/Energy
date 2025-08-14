@@ -3,7 +3,10 @@ import { Inter } from "next/font/google";
 import { ClientLayout } from "./client-layout";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ 
+  subsets: ["latin"],
+  variable: "--font-inter",
+});
 
 export const metadata: Metadata = {
   title: "Energy Hub - Future Energy Visualization",
@@ -16,8 +19,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>
+    <html lang="en" className={inter.variable}>
+      <body className="bg-black">
         <ClientLayout>{children}</ClientLayout>
       </body>
     </html>

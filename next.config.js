@@ -2,6 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
+  output: 'standalone',
   transpilePackages: ['three', '@react-three/fiber', '@react-three/drei'],
   typescript: {
     // Consider removing this in production when all type errors are fixed
