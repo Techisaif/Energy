@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 import dynamic from 'next/dynamic'
 
 // Load Three.js components dynamically to avoid SSR issues
-const EnergyScene = dynamic(() => import('@/components/EnergyScene'), {
+const Scene = dynamic(() => import('@/components/Scene'), {
   ssr: false,
   loading: () => (
     <div className="flex items-center justify-center min-h-screen">
@@ -41,7 +41,9 @@ export default function Home() {
           ref={scrollRef}
           className="absolute inset-0 z-0"
         >
-          <EnergyScene />
+          <div className="w-full h-full">
+            <Scene />
+          </div>
         </div>
         
         <div className="relative z-10 pt-32 pb-16 px-4">
