@@ -4,6 +4,15 @@ import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
+// Dynamic imports
+const EnergyScene = dynamic(() => import('../components/EnergyScene'), { ssr: false });
+const EnergyChart = dynamic(() => import('../components/EnergyChart'), { ssr: false });
+const TechShowcase = dynamic(() => import('../components/TechShowcase'), { ssr: false });
+const VoiceInteraction = dynamic(() => import('../components/VoiceInteraction'), { ssr: false });
+const EnergyInfoGraphic = dynamic(() => import('../components/EnergyInfoGraphic'), { ssr: false });
+const AIInsights = dynamic(() => import('../components/AIInsights'), { ssr: false });
+const AIContentGenerator = dynamic(() => import('../components/AIContentGenerator'), { ssr: false });
+
 // Dynamically import components to avoid SSR issues
 const EnergyScene = dynamic(() => import('../components/EnergyScene'), { ssr: false });
 const EnergyChart = dynamic(() => import('../components/EnergyChart'), { ssr: false });
@@ -77,6 +86,12 @@ export default function Home() {
       </section>
 
       {/* Charts Section */}
+      {/* Technology Showcase Section */}
+      <Suspense fallback={null}>
+        <TechShowcase />
+      </Suspense>
+
+      {/* Analytics Section */}
       <section id="charts" className="min-h-screen p-8 relative">
         <div className="absolute inset-0 bg-gradient-to-b from-blue-900/20 to-black/20 backdrop-blur-sm" />
         <div className="max-w-6xl mx-auto relative">
@@ -95,6 +110,47 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
+
+      {/* AI Insights Section */}
+      <section className="min-h-screen p-8 relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-blue-900/20 backdrop-blur-sm" />
+        <div className="max-w-6xl mx-auto relative">
+          <motion.div
+            initial={{ y: 50, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-3xl font-bold mb-8">AI-Powered Insights</h2>
+            <Suspense fallback={<div className="h-[400px] bg-black/30 backdrop-blur-lg rounded-lg animate-pulse" />}>
+              <AIInsights />
+            </Suspense>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* AI Content Generation Section */}
+      <section className="min-h-screen p-8 relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-blue-900/20 to-black/20 backdrop-blur-sm" />
+        <div className="max-w-6xl mx-auto relative">
+          <motion.div
+            initial={{ y: 50, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-3xl font-bold mb-8">Learn More</h2>
+            <Suspense fallback={<div className="h-[400px] bg-black/30 backdrop-blur-lg rounded-lg animate-pulse" />}>
+              <AIContentGenerator />
+            </Suspense>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Voice Interaction */}
+      <Suspense fallback={null}>
+        <VoiceInteraction />
+      </Suspense>
     </main>
   );
 }
