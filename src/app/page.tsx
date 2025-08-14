@@ -1,12 +1,17 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, Suspense } from 'react'
 import { motion } from 'framer-motion'
 import dynamic from 'next/dynamic'
 
 // Load Three.js components dynamically to avoid SSR issues
 const EnergyScene = dynamic(() => import('@/components/EnergyScene'), {
   ssr: false,
+  loading: () => (
+    <div className="flex items-center justify-center min-h-screen">
+      <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-500"></div>
+    </div>
+  ),
 })
 
 const EnergyChart = dynamic(() => import('@/components/EnergyChart'), {

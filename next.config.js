@@ -3,11 +3,22 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   output: 'standalone',
+  distDir: '.next',
   transpilePackages: ['three', '@react-three/fiber', '@react-three/drei'],
   typescript: {
-    // Consider removing this in production when all type errors are fixed
     ignoreBuildErrors: true
   },
+  async redirects() {
+    return [
+      {
+        source: '/energy-viz/:path*',
+        destination: '/:path*',
+        permanent: true,
+      },
+    ]
+  },
+  trailingSlash: true,
+  poweredByHeader: false,
   // Configure headers for better security
   async headers() {
     return [
