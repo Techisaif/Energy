@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://energy-kxtg5uuvy-techisaifs-projects.vercel.app/sitemap.xml

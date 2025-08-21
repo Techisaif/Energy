@@ -18,6 +18,10 @@
 /out/
 
 # production
+
+# vercel
+.vercel
+.env*.local
 /build
 
 # misc

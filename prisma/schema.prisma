@@ -1,0 +1,58 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model ChatMessage {
+  id        Int      @id @default(autoincrement())
+  question  String
+  answer    String
+  timestamp DateTime @default(now())
+}
+
+model EnergyData {
+  id          Int      @id @default(autoincrement())
+  source      String   // data source (e.g., 'IEA', 'EIA', 'EMBER')
+  category    String   // e.g., 'consumption', 'production', 'emissions'
+  type        String   // e.g., 'solar', 'wind', 'nuclear'
+  value       Float
+  unit        String
+  country     String?
+  region      String?
+  year        Int?
+  month       Int?
+  timestamp   DateTime @default(now())
+  metadata    String?  // Additional JSON metadata
+  sourceUrl   String   // Original source URL
+  lastUpdated DateTime @default(now())
+}
+
+model DataSource {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  url         String
+  lastScraped DateTime?
+  status      String   // success, failed, pending
+  enabled     Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model ScrapingLog {
+  id        Int      @id @default(autoincrement())
+  source    String
+  status    String
+  message   String?
+  timestamp DateTime @default(now())
+}
+
+model UserFeedback {
+  id        Int      @id @default(autoincrement())
+  rating    Int
+  comment   String?
+  timestamp DateTime @default(now())
+}

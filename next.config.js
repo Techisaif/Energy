@@ -3,10 +3,45 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   output: 'standalone',
+  poweredByHeader: false,
+  compress: true,
+  generateEtags: true,
   distDir: '.next',
   transpilePackages: ['three', '@react-three/fiber', '@react-three/drei'],
   typescript: {
     ignoreBuildErrors: true
+  },
+  experimental: {
+    serverActions: true,
+    optimizeCss: true,
+  },
+  images: {
+    domains: ['vercel.com'],
+  },
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/home',
+        permanent: true,
+      },
+    ]
+  },
+  async rewrites() {
+    return {
+      beforeFiles: [
+        {
+          source: '/',
+          destination: '/home',
+        },
+      ],
+      fallback: [
+        {
+          source: '/:path*',
+          destination: '/home',
+        },
+      ],
+    }
   },
   async redirects() {
     return [
