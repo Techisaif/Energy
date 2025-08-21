@@ -1,16 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import dynamic from 'next/dynamic'
-
-const Scene = dynamic(() => import('@/components/Scene'), {
-  ssr: false,
-  loading: () => (
-    <div className="flex items-center justify-center min-h-screen">
-      <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-500"></div>
-    </div>
-  ),
-})
+import '@/styles/hero.css'
 
 export default function HomePage() {
   return (
@@ -18,8 +9,12 @@ export default function HomePage() {
       <div className="relative">
         {/* Hero Section */}
         <section className="min-h-screen relative overflow-hidden">
-          <div className="absolute inset-0 z-0">
-            <Scene />
+          <div className="hero-background">
+            <img 
+              src="https://media.giphy.com/media/RfqzvLD914vlItAzVS/giphy.gif"
+              alt="Sustainable Energy Background"
+              className="w-full h-full object-cover"
+            />
           </div>
           
           <div className="relative z-10 pt-32 pb-16 px-4">
@@ -27,7 +22,7 @@ export default function HomePage() {
               <motion.h1 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="text-5xl md:text-7xl font-bold text-white mb-6"
+                className="text-5xl md:text-7xl font-bold text-white mb-6 text-shadow-lg"
               >
                 Future of Energy
               </motion.h1>

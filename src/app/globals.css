@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+@import '../styles/hero.css';
+@import '../styles/text.css';
+
 :root {
   --color-background: #000000;
   --color-foreground: #ffffff;

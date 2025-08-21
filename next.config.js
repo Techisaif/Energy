@@ -16,7 +16,7 @@ const nextConfig = {
     optimizeCss: true,
   },
   images: {
-    domains: ['vercel.com'],
+    domains: ['vercel.com', 'media.giphy.com'],
   },
   async redirects() {
     return [
