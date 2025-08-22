@@ -9,13 +9,6 @@ export default function HomePage() {
       <div className="relative">
         {/* Hero Section */}
         <section className="min-h-screen relative overflow-hidden">
-          <div className="hero-background">
-            <img 
-              src="https://media.giphy.com/media/RfqzvLD914vlItAzVS/giphy.gif"
-              alt="Sustainable Energy Background"
-              className="w-full h-full object-cover"
-            />
-          </div>
           
           <div className="relative z-10 pt-32 pb-16 px-4">
             <div className="max-w-6xl mx-auto">

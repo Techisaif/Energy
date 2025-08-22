@@ -1,9 +1,9 @@
+@import '../styles/hero.css';
+@import '../styles/text.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import '../styles/hero.css';
-@import '../styles/text.css';
 
 :root {
   --color-background: #000000;
