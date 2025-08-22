@@ -1,7 +1,6 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import '@/styles/hero.css'
 
 export default function HomePage() {
   return (
